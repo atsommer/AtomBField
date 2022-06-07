@@ -5,7 +5,6 @@ Author: Ariel Sommer
 """
 from __future__ import division
 from Li6Bfield import gnd
-import AngularMomentum as Ang
 from AtomBField import units
 from AtomBField import findDiffFreq, plotEnergies
 import numpy as np
