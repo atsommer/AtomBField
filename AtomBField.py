@@ -66,6 +66,7 @@ class AtomIJ(object):
 
         mJ = np.kron(eyeI, Ang.AngZ(J))
         mI = np.kron(Ang.AngZ(I), eyeJ)
+        self.mF_operator = mI+mJ
         self.mu = self.muB*(self.gJ*mJ + self.gI*mI) #total magnetic moment operator / h
 
         if J == int(J):
@@ -73,6 +74,14 @@ class AtomIJ(object):
         else:
             Jlabel = "$_{%d/%d}$" % (int(2*J), 2)
         self.term = self.L_label + Jlabel
+        
+        #Calculate allowed values of F
+        self.F_vals = [F for F in np.arange(abs(I-J),I+J+1)]
+    
+        #Calculate hyperfine g factors gF
+        self.gF_vals = {}
+        for F in self.F_vals:
+            self.gF_vals[F] = landeG(F,I,J,self.gI,self.gJ)
 
     def eig(self,Bz):
         """
@@ -87,7 +96,7 @@ class AtomIJ(object):
 
         return vals.real, vecs
 
-    def S_MatrixElements(self, ind1, ind2, Bz):
+    def S_MatrixElements(self, ind1, ind2, Bz, return_eig = False):
         #Calculates matrix elements:
         #<ind1 |S_x| ind2>, <ind1 |S_y| ind2>, <ind1 |S_z| ind2>
         #Omitting a factor of hbar
@@ -100,7 +109,10 @@ class AtomIJ(object):
         Sx_el = vecs[ind1].dot(Sx).dot(vecs[ind2])
         Sy_el = vecs[ind1].dot(Sy).dot(vecs[ind2])        
         Sz_el = vecs[ind1].dot(Sz).dot(vecs[ind2])
-        return Sx_el, Sy_el, Sz_el
+        if return_eig:
+            return Sx_el, Sy_el, Sz_el, vals, vecs
+        else:
+            return Sx_el, Sy_el, Sz_el
 
     #def 
     
@@ -129,7 +141,7 @@ class AtomIJ(object):
 
 #### Utility functions ####
 
-def plotEnergies(atom, Bmax,Bmin=0):
+def plotEnergies(atom, Bmax,Bmin=0,show=True):
     Bfields = np.linspace(Bmin,Bmax,1001)
     energies = []
     for Bz in Bfields:
@@ -137,13 +149,15 @@ def plotEnergies(atom, Bmax,Bmin=0):
         energies.append(sorted(vals))
     energies_plot = np.transpose(np.array(energies))
     #Plot
-    for line in energies_plot:
-        plt.plot(Bfields/units.G, line/units.MHz)
+    for ind,line in reversed(list(enumerate(energies_plot))):
+        plt.plot(Bfields/units.G, line/units.MHz,label=ind)
     plt.xlabel("B (G)")
-    plt.ylabel("E (MHz)")
-    plt.title(atom.name+" "+atom.term)
+    plt.ylabel("E/h (MHz)")
+    plt.title(atom.name+" "+atom.term+" Energies")
+    plt.legend()
     plt.tight_layout()
-    plt.show()
+    if show:
+        plt.show()
 
 def findDiffFreq(atom_gnd, atom_exc, ind_g, ind_e, Bz):
     """
