@@ -16,6 +16,11 @@ import numpy as np
 Calculates RF frequencies exactly and compares to linear prediction
 for low field F=1/2-->F=3/2
 """
+print(plt.rcParams["font.size"])
+plt.rcParams.update({'font.size': 8})
+
+print(plt.rcParams["lines.linewidth"])
+plt.rcParams.update({"lines.linewidth":1})
 
 for F in gnd.F_vals:
     print("g_F(F={}): {}".format(F,gnd.gF_vals[F]))
@@ -54,7 +59,7 @@ B_vals=np.linspace(Bmin,Bmax,20)#Gauss
 freqs = {}
 strengths={}
 fmts={0:"-",1:".--"} #plot formats for frequency plot
-plt.figure(figsize=(12,5))
+plt.figure(figsize=(12,5),dpi=120)
 plt.subplot(1,3,2)
 for ind1 in gnd_range:
     for ind2 in exc_range[ind1]:
@@ -78,8 +83,8 @@ for ind1 in gnd_range:
             freqs[ind1,ind2].append(nu_MHz)
             strengths[ind1,ind2].append(strength)
         #plt.plot(B_vals, freqs[ind1,ind2],fmts[ind1],label="{}->{}".format(ind1,ind2))
-        print(strengths[ind1,ind2])
-        plt.scatter(B_vals, freqs[ind1,ind2],s=100*np.array(strengths[ind1,ind2]),
+        # print(strengths[ind1,ind2])
+        plt.scatter(B_vals, freqs[ind1,ind2],s=50*np.array(strengths[ind1,ind2]),
                     label="{}->{}".format(ind1,ind2))
 #first-order prediction
 freqs_linear = {}
@@ -110,5 +115,6 @@ plt.ylabel("strength")
 plt.subplot(1,3,1)
 AtomBField.plotEnergies(gnd, Bmax,Bmin,show=False)
 plt.tight_layout()
+plt.savefig("Li6RF_LowField_output.png",dpi=120)
 plt.show()
 
