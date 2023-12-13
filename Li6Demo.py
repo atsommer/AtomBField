@@ -4,7 +4,7 @@ Demo using Li6
 Author: Ariel Sommer
 """
 from __future__ import division
-from Li6Bfield import gnd
+from Li6Bfield import gnd, exc2
 from AtomBField import units
 from AtomBField import findDiffFreq, plotEnergies
 import numpy as np
@@ -29,3 +29,6 @@ print("<%g|Sx|%g>/hbar=%g" % (ind1, ind2, np.abs(S_elements[0])))
 
 #plot the energy levels
 plotEnergies(gnd, 1000*units.G)
+import matplotlib.pyplot as plt
+plt.figure()
+plotEnergies(exc2, 1000*units.G)
