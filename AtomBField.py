@@ -149,6 +149,7 @@ def plotEnergies(atom, Bmax,Bmin=0,show=True):
         energies.append(sorted(vals))
     energies_plot = np.transpose(np.array(energies))
     #Plot
+    plt.figure()
     for ind,line in reversed(list(enumerate(energies_plot))):
         plt.plot(Bfields/units.G, line/units.MHz,label=ind)
     plt.xlabel("B (G)")
@@ -191,6 +192,7 @@ def plotImgFrequencies(atom_gnd, atom_exc, ind_g, ind_e, ref, Bmax, NB=1001, fil
         np.savetxt(filepath, save_array, delimiter=",",header="B(G), ImgFreq (MHz)/%d" % (divide), comments="")
 
     #Plot
+    plt.figure()
     plt.plot(Bfields/units.G, energies_plot/units.MHz)
     plt.xlabel("B (G)")
     plt.ylabel("$\\Delta E$ (MHz)")

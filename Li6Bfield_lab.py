@@ -23,8 +23,8 @@ if __name__=="__main__":
     print(vals_g[0]/units.MHz)
 
     # RF Spectroscopy
-    nu_rf = findDiffFreq(gnd, gnd, 0, 1, Bz)
-    print("RF freq at %g G: %g MHz" % (Bz/units.G, nu_rf/units.MHz))
+    #nu_rf = findDiffFreq(gnd, gnd, 0, 1, Bz)
+    #print("RF freq at %g G: %g MHz" % (Bz/units.G, nu_rf/units.MHz))
     
     #High field imaging
     #reference transition
@@ -32,9 +32,9 @@ if __name__=="__main__":
     ref_e = 0 #lowest energy hyperfine state (5/2)
     Bref = 0*units.G #reference is defined at zero field
     #beat lock setup
-    probe_offset = -200.81*units.MHz #Imaging AOM
+    probe_offset = 0#-200.81*units.MHz #Imaging AOM
     #probe_offset = 0.0*units.MHz #Imaging AOM
-    beat_ref_offset = -28*units.MHz #MOT detuning from reference transition
+    beat_ref_offset =0# -28*units.MHz #MOT detuning from reference transition
     ref_offset = probe_offset+beat_ref_offset #Total detuning from reference transition
     
     Bmax=1000*units.G    
