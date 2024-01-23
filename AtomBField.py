@@ -200,7 +200,7 @@ def plotImgFrequencies(atom_gnd, atom_exc, ind_g, ind_e, ref, Bmax, NB=1001, fil
     plt.tight_layout()
     plt.show()
 
-def imgProgram(gnd, exc, ref_g, ref_e, ref_offset_freq, ind_g, ind_e, Bz, filepath=None, Bmax = 1000*units.G, Bref=0,doplot=True,divide=1,Bmin=0):
+def imgProgram(gnd, exc, ref_g, ref_e, ref_offset_freq, ind_g, ind_e, Bz, filepath=None, Bmax = 1000*units.G, Bref=0,doplot=True,divide=1,Bmin=0,NB=1001):
 
     nucyc = findDiffFreq(gnd, exc, ind_g=ref_g, ind_e=ref_e, Bz=Bref)
     ref = nucyc + ref_offset_freq
@@ -215,7 +215,7 @@ def imgProgram(gnd, exc, ref_g, ref_e, ref_offset_freq, ind_g, ind_e, Bz, filepa
     if doplot:
         plotEnergies(gnd, Bmax, Bmin)
         plotEnergies(exc, Bmax, Bmin)
-        plotImgFrequencies(gnd, exc, ind_g, ind_e, ref=ref, Bmax=Bmax, filepath=filepath, divide=divide)
+        plotImgFrequencies(gnd, exc, ind_g, ind_e, ref=ref, Bmax=Bmax, filepath=filepath, divide=divide, NB=NB)
 
 
 if __name__ == "__main__":
