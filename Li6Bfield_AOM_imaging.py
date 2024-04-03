@@ -16,7 +16,7 @@ import os
 
 if __name__=="__main__":
     
-    Bz= 286.05*units.G #field at which to print the image frequency to the console
+    Bz= 690*units.G #field at which to print the image frequency to the console
     
     #High field imaging using AOMs to set frequency
     
