@@ -16,7 +16,7 @@ import os
 
 if __name__=="__main__":
     
-    Bz= 690*units.G #field at which to print the image frequency to the console
+    Bz= 338*units.G #field at which to print the image frequency to the console
     
     #High field imaging using AOMs to set frequency
     
@@ -29,12 +29,18 @@ if __name__=="__main__":
     ref_offset = 0 *units.MHz#arbitrary frequency offset (MHz)
     
     Bmax=1000*units.G    
-    ind_g = 1 #target ground state at high field
+    ind_g = 0 #target ground state at high field
     ind_e = 2-ind_g#target excited state at high field for sigma- transition
     
     
     folder = os.getcwd()
     filepath = os.path.join(folder,"Li_6_imgfreq.csv")
+
+    imgProgram(gnd, exc2, ref_g, ref_e, ref_offset, ind_g, ind_e, Bz, filepath, Bmax, Bref, doplot=1,NB=5001)
+    
+    ind_g = 1 #target ground state at high field
+    ind_e = 2-ind_g#target excited state at high field for sigma- transition
+    
 
     imgProgram(gnd, exc2, ref_g, ref_e, ref_offset, ind_g, ind_e, Bz, filepath, Bmax, Bref, doplot=1,NB=5001)
     

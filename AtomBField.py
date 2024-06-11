@@ -192,12 +192,13 @@ def plotImgFrequencies(atom_gnd, atom_exc, ind_g, ind_e, ref, Bmax, NB=1001, fil
         np.savetxt(filepath, save_array, delimiter=",",header="B(G), ImgFreq (MHz)/%d" % (divide), comments="")
 
     #Plot
-    plt.figure()
-    plt.plot(Bfields/units.G, energies_plot/units.MHz)
+#    plt.figure()
+    plt.plot(Bfields/units.G, energies_plot/units.MHz, label="{} to {}".format(ind_g,ind_e))
     plt.xlabel("B (G)")
     plt.ylabel("$\\Delta E$ (MHz)")
     plt.title("Image Freq/%d" % divide)
     plt.tight_layout()
+    plt.legend()
     plt.show()
 
 def imgProgram(gnd, exc, ref_g, ref_e, ref_offset_freq, ind_g, ind_e, Bz, filepath=None, Bmax = 1000*units.G, Bref=0,doplot=True,divide=1,Bmin=0,NB=1001):
@@ -213,8 +214,8 @@ def imgProgram(gnd, exc, ref_g, ref_e, ref_offset_freq, ind_g, ind_e, Bz, filepa
     print(msg)
 
     if doplot:
-        plotEnergies(gnd, Bmax, Bmin)
-        plotEnergies(exc, Bmax, Bmin)
+#        plotEnergies(gnd, Bmax, Bmin)
+#        plotEnergies(exc, Bmax, Bmin)
         plotImgFrequencies(gnd, exc, ind_g, ind_e, ref=ref, Bmax=Bmax, filepath=filepath, divide=divide, NB=NB)
 
 

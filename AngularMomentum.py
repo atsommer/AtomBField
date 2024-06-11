@@ -28,7 +28,7 @@ def AngState(J,m):
     Returns the state vector for m in the standard basis for spin J
     """
     N = _getN(J)
-    state = np.zeros(N, dtype=np.complex)
+    state = np.zeros(N, dtype=complex)
     state[AngIndex(J,m)] = 1
     return state
 
@@ -45,7 +45,7 @@ def AngLadder(J,sign):
         raise ValueError("sign must be +- 1")
     
     N = _getN(J)
-    Mat = np.zeros((N,N),dtype=np.complex)
+    Mat = np.zeros((N,N),dtype=complex)
     mRange = np.arange(-J,J) if sign == 1 else np.arange(-J+1,J+1)
     for m in mRange:
         Mat[AngIndex(J,m+sign),AngIndex(J,m)] = np.sqrt(J*(J+1)-m*(m+sign))
@@ -56,7 +56,7 @@ def AngZ(J):
     Operator matrix for z component of angular momentum in standard basis
     """
     N = _getN(J)
-    Mat = np.zeros((N,N),dtype=np.complex)
+    Mat = np.zeros((N,N),dtype=complex)
     for m in np.arange(-J,J+1):
         Mat[AngIndex(J,m),AngIndex(J,m)] = m
     return Mat
